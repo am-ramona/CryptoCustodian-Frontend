@@ -1,51 +1,51 @@
-'use client'
- 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
- 
+'use client';
+
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
 export function NavLinks() {
-  const pathname = usePathname()
- 
+  const pathname = usePathname();
+
   return (
     <nav>
-      <Link className={`link ${pathname === '/' ? 'active' : ''}`} href="/">
+      <Link className={`link ${pathname === '/' ? 'active' : ''}`} href='/'>
         Dashboard
       </Link>
- 
+
       <Link
         className={`link ${pathname === '/about' ? 'active' : ''}`}
-        href="/assetOverview"
+        href='/assetOverview'
       >
         Assets Overview
       </Link>
 
       <Link
         className={`link ${pathname === '/about' ? 'active' : ''}`}
-        href="/positionsAndHoldings"
+        href='/positionsAndHoldings'
       >
         Positions and Holdings
       </Link>
 
       <Link
         className={`link ${pathname === '/about' ? 'active' : ''}`}
-        href="/aprAndPerformanceMetrics"
+        href='/aprAndPerformanceMetrics'
       >
         APR and Performance Metrics
       </Link>
 
       <Link
         className={`link ${pathname === '/about' ? 'active' : ''}`}
-        href="/clientManagement"
+        href='/clientManagement'
       >
         Client Management
       </Link>
 
       <Link
         className={`link ${pathname === '/about' ? 'active' : ''}`}
-        href="/transactionAndCompliance"
+        href='/transactionAndCompliance'
       >
         Transaction and Compliance
       </Link>
     </nav>
-  )
+  );
 }

@@ -35,7 +35,7 @@
     "@typescript-eslint/array-type": [
       "warn",
       {
-       "default": "array"
+        "default": "array"
       }
     ],
     "@typescript-eslint/consistent-type-assertions": [
