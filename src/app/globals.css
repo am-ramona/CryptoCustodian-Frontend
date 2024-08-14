@@ -3,17 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 35, 35, 35;
+  --background-start-rgb: 238, 237, 237;
+  --background-end-rgb: 238, 237, 237;
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 238, 237, 237;
+    --background-start-rgb: 35, 35, 35;
+    --background-end-rgb: 35, 35, 35;
+    --font-sans: var(--font-ibm-plex-sans);
+    --font-mono: var(--font-ibm-plex-mono);
   }
+}
+
+html {
+  font-family: var(--font-sans);
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  font-family: var(--font-mono);
 }
 
 body {
@@ -24,6 +38,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  height: 100%;
+  width: 100%;
 }
 
 @layer utilities {

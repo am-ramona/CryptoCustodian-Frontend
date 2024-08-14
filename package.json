@@ -14,6 +14,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@carbon/react": "^1.63.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
