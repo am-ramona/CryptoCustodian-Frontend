@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={`${ibmPlexSans.variable} ${ibmPlexMono.variable}`}>
-      <body className="relative p-5">
+      <body className="relative">
         <Layout>
           {children}
         </Layout>

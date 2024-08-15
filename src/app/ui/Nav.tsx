@@ -17,14 +17,13 @@ type MenuItemProps = {
   const Navigation: React.FC<SidebarProps> = ({ show, setter }) => { 
     const router = useRouter();
 
-    const className = "bg-blackLight w-[250px] h-[calc(100vh-12.5rem)] transition-[margin-left] ease-in-out duration-500 fixed md:static top-60 bottom-0 left-0 z-40";
-    // Append class based on state of sidebar visiblity
+    const className = "w-fit h-[calc(100vh-10rem)] transition-[margin-left] ease-in-out duration-500 fixed md:static top-60 bottom-0 left-0 z-40";
+
     const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
 
-    // Clickable menu items
     const MenuItem: React.FC<MenuItemProps> = ({ icon, name, route }) => { 
-        // Highlight menu item based on currently displayed route
-        const colorClass = router.pathname === route ? "text-offWhite" : "text-offWhite/50 hover:text-offWhite";
+
+        const colorClass = router.pathname === route ? "text-blackLight" : "text-blackLight/75 hover:text-blackLight";
 
         return (
             <Link
@@ -32,12 +31,12 @@ type MenuItemProps = {
                 onClick={() => {
                     setter(oldVal => !oldVal);
                 }}
-                className={`flex gap-1 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
+                className={`flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
             >
-                <div className="text-xl flex [&>*]:mx-auto w-[30px]">
+                <div className="text-xl flex [&>*]:mx-auto text-green">
                     {icon}
                 </div>
-                <div>{name}</div>
+                <div className="font-mono font-normal">{name}</div>
             </Link>
         )
     }
@@ -55,11 +54,11 @@ type MenuItemProps = {
     return (
         <>
             <div className={`${className}${appendClass}`}>
-                <div className="p-2 flex">
+                {/* <div className="p-2 flex">
                     <Link href="/" className="text-red">
                        Karpatkey
                     </Link>
-                </div>
+                </div> */}
                 <div className="flex flex-col">
                     <MenuItem
                         name="Dashboard"
