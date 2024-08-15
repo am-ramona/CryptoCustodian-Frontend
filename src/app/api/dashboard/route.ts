@@ -133,9 +133,7 @@ function calculatePortfolio(transactions: any[]) {
  * @returns An object representing the asset allocation
  */
 
-function calculateAssetAllocation(transactions: any[]): {
-  [tokenSymbol: string]: number;
-} {
+function calculateAssetAllocation(transactions: any[]): Array<{ tokenSymbol: string; allocation: number }> {
   const allocation = transactions.reduce((acc: any, tx) => {
     if (!acc[tx.tokenSymbol]) {
       acc[tx.tokenSymbol] = 0;
@@ -145,8 +143,15 @@ function calculateAssetAllocation(transactions: any[]): {
     return acc;
   }, {});
 
-  return allocation;
+  // Convert the allocation object to an array of objects
+  const allocationArray = Object.keys(allocation).map((tokenSymbol) => ({
+    tokenSymbol,
+    allocation: allocation[tokenSymbol],
+  }));
+
+  return allocationArray;
 }
+
 
 function calculatePerformance(transactions: any[]) {
   // Example performance calculation based on transaction value

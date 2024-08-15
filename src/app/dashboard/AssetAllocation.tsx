@@ -1,37 +1,77 @@
 import React from 'react'
-import { PieChart, Pie, Cell, Tooltip } from 'recharts'
+import { Bar } from 'react-chartjs-2'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { IBM_Plex_Mono } from 'next/font/google'
+import useIntersectionObserver from '../hooks/useIntersectionObserver'
 
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 interface DataItem {
-  name: string;
-  value: number;
-}
+    tokenSymbol: string;
+    allocation: number | null;
+  }
+  
+  interface BarChartProps {
+    assetsAllocated: DataItem[];
+    width?: string | number;  // Optional width prop
+    height?: string | number; // Optional height prop
+  }
 
-const data: DataItem[] = [
-  { name: 'Token A', value: 400 },
-  { name: 'Token B', value: 300 },
-  { name: 'Token C', value: 300 },
-  { name: 'Token D', value: 200 },
-];
+const AssetAllocationVisual: React.FC<BarChartProps> = ({ assetsAllocated,  width = '100%', height = 400  }) => {
+    // const [isVisible, elementRef] = useIntersectionObserver({
+    //     threshold: 0.1, // Adjust threshold as needed
+    //   });
+      
+    // Filter out items with null allocation
+    const filteredData = assetsAllocated.filter(item => item.allocation !== null) as DataItem[];
 
-const COLORS = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
+    const chartData = {
+        labels: filteredData.map(item => item.tokenSymbol),
+        datasets: [
+            {
+                label: 'Allocation',
+                data: filteredData.map(item => item.allocation),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
 
-const AssetAllocationVisual: React.FC = () => (
-  <PieChart width={400} height={400}>
-    <Pie
-      data={data}
-      dataKey="value"
-      nameKey="name"
-      innerRadius={60}
-      outerRadius={80}
-      fill="#8884d8"
-      paddingAngle={5}
-    >
-      {data.map((entry, index) => (
-        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-      ))}
-    </Pie>
-    <Tooltip />
-  </PieChart>
-);
+    const options = {
+        responsive: true,
+        maintainAspectRatio: true, // Disable aspect ratio to allow custom width/height
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context: any) {
+                        return `${context.dataset.label}: ${context.raw}`;
+                    },
+                },
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 90,
+                },
+            },
+            y: {
+                beginAtZero: true,
+            },
+        },
+    };
+
+    return  <Bar data={chartData} options={options} />
+    // (
+    //     <div ref={elementRef} style={{ minHeight: height, margin: '30px 0' }}>
+    //   {isVisible ? (
+       
+    // ): null} </div>)
+
+};
 
 export default AssetAllocationVisual

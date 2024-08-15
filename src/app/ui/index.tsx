@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>  
 		  <Header />
-		  <div className="grid grid-cols-main">
+		  <div className="grid grid-cols-main  gap-x-10">
 		  	<NavigationMobile setter={setShowSidebar} />
 		  	<Navigation show={showSidebar} setter={setShowSidebar} />
 			{/* <Nav /> */}

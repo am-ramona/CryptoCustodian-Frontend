@@ -1,7 +1,24 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+// import ParentSize from '@visx/responsive/lib/components/ParentSize'
 import AssetAllocationVisual from './AssetAllocation'
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+
+// Lazy load the component
+const LazyComponent = dynamic(() => import('./AssetAllocation'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>, // Optional loading component
+});
+
+const LazyLoadOnScroll: React.FC = () => {
+  const { ref, isVisible } = useIntersectionObserver({
+    threshold: 0.1, // Adjust as needed
+  });
+
+  return <div ref={ref}>{isVisible && <LazyComponent />}</div>;
+};
 
 interface PortfolioItem {
   token: string;
@@ -9,9 +26,14 @@ interface PortfolioItem {
   date: Date;
 }
 
+interface AllocationItem {
+  tokenSymbol: string;
+  allocation: number;
+}
+
 export default function Dashboard() {
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
-  const [allocation, setAllocation] = useState<PortfolioItem[]>([]);
+  const [allocation, setAllocation] = useState<AllocationItem[]>([]);
   const [performance, setPerformance] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -39,7 +61,7 @@ export default function Dashboard() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="p-6 grid place-items-center">
+    <div className="grid place-items-center">
       <h1>Client Portfolio</h1>
       {/* <ul>
         {portfolio.map((item, index) => (
@@ -58,19 +80,17 @@ export default function Dashboard() {
       </ul> */}
       {/* Portfolio Overview */}
       {/* <h2 className="text-xl font-semibold">Portfolio Overview</h2> */}
-      <ul aria-label='Client Portfolio menu' className="list-[square] w-full max-h-80 scrollbar-thumb-green scrollbar-gutter-both-edges scrollbar-thin">
+      <ul aria-label='Client Portfolio menu' className="list-[square] w-full max-h-80 h-80 overflow-y-auto overflow-x-visible p-5 scrollbar-thumb-green scrollbar-gutter-both-edges scrollbar-thin m-6 space-y-4 border-y border-grey-light">
         {portfolio.map((item) => (
-          <li key={item.symbol} aria-labelledby="Token data" className="font-sans font-normal">
-            {item.name}, ({item.symbol}): {item.amount && item.amount.toFixed(2)}
+          <li aria-labelledby="Token data" key={item.symbol} className="font-sans font-normal">
+            <b>{item.name}, ({item.symbol})</b>: {item.amount && item.amount.toFixed(2)}
           </li>
         ))}
       </ul>
 
-      {/* Asset Allocation Visualization */}
-      <div className="mb-6">
-        <h1>Asset Allocation</h1>
-        {/* Implement a chart or graph component here */}
-        <AssetAllocationVisual />
+      <div className="w-full">
+        <h1 className='text-center'>Asset Allocation</h1>
+        <LazyComponent assetsAllocated={allocation} width="80%" height={500} />
       </div>
 
       {/* Performance Metrics */}
