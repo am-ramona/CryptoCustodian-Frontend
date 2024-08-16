@@ -37,6 +37,43 @@ import { NextRequest, NextResponse } from "next/server";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
+// Helper function to convert Wei to Ether
+const weiToEther = (wei: string): number => parseFloat(wei) / 1e18;
+interface EtherscanTransaction {
+  blockNumber: string;
+  timeStamp: string;
+  hash: string;
+  nonce: string;
+  blockHash: string;
+  from: string;
+  contractAddress: string;
+  to: string;
+  value: string; // In Wei
+  tokenName: string;
+  tokenSymbol: string;
+  tokenDecimal: string;
+  transactionIndex: string;
+  gas: string;
+  gasPrice: string;
+  gasUsed: string;
+  cumulativeGasUsed: string;
+  input: string;
+  confirmations: string;
+}
+
+interface SmartContractMetrics {
+  transactionCount: number;
+  totalGasUsed: number;
+  totalEtherTransferred: number;
+  tokenTransfers: number;
+  minGasUsed: number;
+  maxGasUsed: number;
+  averageGasPrice: number;
+  averageTransactionValue: number;
+  transactionFrequency: Record<string, number>;
+  errorRate: number;
+}
+
 /**
  * Fetches transaction data from the Etherscan API using the provided contract address and API key.
  *
@@ -62,7 +99,7 @@ export async function GET(request: NextRequest) {
     // Calculate portfolio, asset allocation, and performance metrics
     const portfolio = calculatePortfolio(transactions);
     const allocation = calculateAssetAllocation(transactions);
-    const performance = calculatePerformance(transactions);
+    const performance = calculatePerformanceMetrics(transactions);
 
     return NextResponse.json({ portfolio, allocation, performance });
   } catch (error) {
@@ -82,8 +119,8 @@ export async function GET(request: NextRequest) {
  * @returns {Object[]} An array of token objects representing the portfolio with total amounts.
  */
 
-function calculatePortfolio(transactions: any[]) {
-  const portfolio = transactions.reduce((acc, tx) => {
+function calculatePortfolio(transactions: EtherscanTransaction[]) {
+  const portfolio = transactions.reduce((acc: Record<string, { amount: number; symbol: string; name?: string }>, tx) => {
     const tokenName = tx.tokenName;
     const token = tx.tokenSymbol;
     const amount = parseFloat(tx.value) / 10 ** parseInt(tx.tokenDecimal); // Convert from smallest unit
@@ -133,7 +170,7 @@ function calculatePortfolio(transactions: any[]) {
  * @returns An object representing the asset allocation
  */
 
-function calculateAssetAllocation(transactions: any[]): Array<{ tokenSymbol: string; allocation: number }> {
+function calculateAssetAllocation(transactions: EtherscanTransaction[]): Array<{ tokenSymbol: string; allocation: number }> {
   const allocation = transactions.reduce((acc: any, tx) => {
     if (!acc[tx.tokenSymbol]) {
       acc[tx.tokenSymbol] = 0;
@@ -152,22 +189,57 @@ function calculateAssetAllocation(transactions: any[]): Array<{ tokenSymbol: str
   return allocationArray;
 }
 
+const isFailedTransaction = (tx: EtherscanTransaction): boolean => {
+  return tx.input === 'deprecated';
+};
 
-function calculatePerformance(transactions: any[]) {
-  // Example performance calculation based on transaction value
-  // You may need more sophisticated calculations based on historical data
-  const performance = transactions.reduce((acc: any, tx) => {
-    if (!acc[tx.tokenSymbol]) {
-      acc[tx.tokenSymbol] = 0;
+
+const calculatePerformanceMetrics = (transactions: EtherscanTransaction[]): SmartContractMetrics => {
+  let transactionCount = 0;
+  let totalGasUsed = 0;
+  let averageGasPrice = 0;
+  let maxGasUsed = 0;
+  let minGasUsed = 0;
+  let totalEtherTransferred = 0;
+  let tokenTransfers = 0;
+  let averageTransactionValue = 0;
+  let transactionFrequency: Record<string, number> = {};
+  let errorRate = 0;
+
+  transactions.forEach(tx => {
+    transactionCount++;
+    totalGasUsed += parseInt(tx.gasUsed, 10);
+    totalEtherTransferred += weiToEther(tx.value);
+    const date = new Date(parseInt(tx.timeStamp, 10) * 1000).toISOString().split('T')[0];
+    transactionFrequency[date] = (transactionFrequency[date] || 0) + 1;
+    if (tx.tokenName) {
+      tokenTransfers++;
     }
-    acc[tx.tokenSymbol] +=
-      parseFloat(tx.value) / 10 ** parseInt(tx.tokenDecimal);
-    return acc;
-  }, {});
+  });
 
-  return performance;
-}
+  averageGasPrice = transactions.reduce((sum, tx) => sum + parseInt(tx.gasPrice, 10), 0) / transactions.length;
+  averageTransactionValue = transactions.reduce((sum, tx) => sum + parseInt(tx.value, 10), 0) / transactions.length;
+  const gasUsedValues = transactions.map(tx => parseInt(tx.gasUsed, 10));
+  maxGasUsed = Math.max(...gasUsedValues);
+  minGasUsed = Math.min(...gasUsedValues);
 
+  const totalTransactions = transactions.length;
+  const failedTransactions = transactions.filter(isFailedTransaction).length;
+  errorRate = (failedTransactions / totalTransactions) * 100;
+
+  return {
+    transactionCount,
+    totalGasUsed,
+    totalEtherTransferred,
+    tokenTransfers,
+    averageGasPrice,
+    averageTransactionValue,
+    maxGasUsed,
+    minGasUsed,
+    transactionFrequency,
+    errorRate
+  };
+};
 // import axios from 'axios';
 
 // async function getEtherscanData() {

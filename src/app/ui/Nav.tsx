@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'  
 import { Workspace, Dashboard, Row, DataVis_1, CustomerService, IbmOpenshiftContainerPlatformOnVpcForRegulatedIndustries } from '@carbon/icons-react'
 
 type SidebarProps = {
@@ -16,13 +16,13 @@ type MenuItemProps = {
 
 const Navigation: React.FC<SidebarProps> = ({ show, setter }) => {
 
-    const router = useRouter();
+    const pathname = usePathname();
 
     const className = "w-fit h-[calc(100vh-10rem)] transition-[margin-left] ease-in-out duration-500 fixed md:static top-60 bottom-0 left-0 z-40";
     const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
 
     const MenuItem: React.FC<MenuItemProps> = ({ icon, name, route }) => {
-        const colorClass = router.pathname === route ? "text-blackLight" : "text-blackLight/75 hover:text-blackLight";
+        const colorClass = pathname === route ? "text-blackLight" : "text-blackLight/75 hover:text-blackLight";
 
         return (
             <Link
