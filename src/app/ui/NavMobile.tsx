@@ -12,7 +12,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ setter }) => {
             <button
                 className="text-4xl flex text-white"
                 onClick={() => {
-                    setter(oldVal => !oldVal);
+                    setter((oldVal => !oldVal);
                 }}
             >
                 {/* <Image src="/menu.svg" alt="Menu Icon" width={50} height={50} className="text-offWhite"/> */}

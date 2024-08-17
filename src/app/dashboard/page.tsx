@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 // import ParentSize from '@visx/responsive/lib/components/ParentSize'
 import AssetAllocationVisual from './AssetAllocation'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { GetServerSideProps } from 'next'
 
 // Lazy load the component
 const LazyComponent = dynamic(() => import('./AssetAllocation'), {
@@ -31,6 +32,7 @@ interface AllocationItem {
   allocation: number;
 }
 
+
 export default function Dashboard() {
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
   const [allocation, setAllocation] = useState<AllocationItem[]>([]);
@@ -40,7 +42,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchPortfolio() {
       try {
-        const response = await fetch('/api/dashboard');
+        const response = await fetch('http://localhost:5000/getWalletTransactions');
         const data = await response.json();
         setPortfolio(data.portfolio);
         setAllocation(data.allocation);
