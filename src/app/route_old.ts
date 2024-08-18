@@ -82,21 +82,21 @@
 //   );
 // }
 
-import type { NextRequest, NextResponse } from 'next/server';
+// import type { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
-  const data = {
-    message: "Hello from Next.js API!",
-  };
+// export async function GET(request: NextRequest) {
+//   const data = {
+//     message: "Hello from Next.js API!",
+//   };
 
-  return NextResponse.json(data);
-}
+//   return NextResponse.json(data);
+// }
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
+// export async function POST(request: NextRequest) {
+//   const body = await request.json();
   
-  // Process the incoming data and return a response
-  const responseMessage = `Received data: ${JSON.stringify(body)}`;
+//   // Process the incoming data and return a response
+//   const responseMessage = `Received data: ${JSON.stringify(body)}`;
 
-  return NextResponse.json({ message: responseMessage });
-}
+//   return NextResponse.json({ message: responseMessage });
+// }

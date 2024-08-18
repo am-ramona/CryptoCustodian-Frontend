@@ -18,18 +18,20 @@ const Navigation: React.FC<SidebarProps> = ({ show, setter }) => {
 
     const pathname = usePathname();
 
-    const className = "w-fit h-[calc(100vh-10rem)] transition-[margin-left] ease-in-out duration-500 fixed md:static top-60 bottom-0 left-0 z-40";
-    const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
+    const className = "w-fit transition-[margin-left] ease-in-out duration-500 fixed md:static top-60 bottom-0 left-0 z-40";
+    const appendClass = show ? " ml-0 h-full bg-blackLight text-offWhite/75" : " ml-[-320px] md:ml-0 h-[calc(100vh-10rem)] text-blackLight/75";
 
     const MenuItem: React.FC<MenuItemProps> = ({ icon, name, route }) => {
-        const colorClass = pathname === route ? "text-blackLight" : "text-blackLight/75 hover:text-blackLight";
-
+        const colorClass = pathname === route ? "text-inherit" : "text-inherit/75 hover:text-inherit";
+console.log('pathname', pathname)
+console.log('route', route)
+    console.log('show', show)
         return (
             <Link
                 href={route}
-                onClick={() => {
-                    setter(oldVal => !oldVal);
-                }}
+                // onClick={() => {
+                //     setter(oldVal => !oldVal);
+                // }}
                 className={`flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 ${colorClass}`}
             >
                 <div className="text-xl flex [&>*]:mx-auto text-green">

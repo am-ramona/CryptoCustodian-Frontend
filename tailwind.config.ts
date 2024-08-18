@@ -39,7 +39,8 @@ const config: Config = {
         "60": "3.75rem",
       },
       gridTemplateColumns: {
-        main: "auto minmax(700px, 1fr)",
+        // main: "auto minmax(700px, 1fr)",
+        main: "332px minmax(300px, 1fr)"
       },
       scrollbar: ["rounded"],
     },

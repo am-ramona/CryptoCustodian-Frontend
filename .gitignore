@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# old files to be deleted 
+/src/app/route-old.ts
+/src/app/template_old.tsx

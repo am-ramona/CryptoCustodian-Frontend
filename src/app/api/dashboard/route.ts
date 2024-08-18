@@ -1,37 +1,3 @@
-// import type { NextRequest, NextResponse } from 'next/server';
-// import axios from 'axios';
-
-// const ETHERSCAN_API_KEY = 'IERRNNKHCYX2E9SDMGANHCCQG9AZYJ9D48';
-// const CONTRACT_ADDRESS = '0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c';
-
-// export async function GET(request: NextRequest) {
-//   try {
-//     const response = await axios.get('https://api.etherscan.io/api', {
-//       params: {
-//         module: 'account',
-//         action: 'tokentx',
-//         address: CONTRACT_ADDRESS,
-//         apikey: ETHERSCAN_API_KEY
-//       }
-//     });
-
-//     const transactions = response.data.result;
-
-//     // Process transactions to get portfolio, asset allocation, and performance metrics
-//     // Example processing (you should adapt it to your needs):
-//     const portfolio = transactions.map(tx => ({
-//       token: tx.tokenSymbol,
-//       amount: tx.value,
-//       date: new Date(tx.timeStamp * 1000)
-//     }));
-
-//     return NextResponse.json({ portfolio });
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     return NextResponse.error();
-//   }
-// }
-
 import { NextRequest, NextResponse } from "next/server";
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
@@ -70,7 +36,7 @@ interface SmartContractMetrics {
   maxGasUsed: number;
   averageGasPrice: number;
   averageTransactionValue: number;
-  transactionFrequency: Record<string, number>;
+  // transactionFrequency: Record<string, number>;
   errorRate: number;
 }
 
@@ -203,15 +169,15 @@ const calculatePerformanceMetrics = (transactions: EtherscanTransaction[]): Smar
   let totalEtherTransferred = 0;
   let tokenTransfers = 0;
   let averageTransactionValue = 0;
-  let transactionFrequency: Record<string, number> = {};
+  // let transactionFrequency: Record<string, number> = {};
   let errorRate = 0;
 
   transactions.forEach(tx => {
     transactionCount++;
     totalGasUsed += parseInt(tx.gasUsed, 10);
     totalEtherTransferred += weiToEther(tx.value);
-    const date = new Date(parseInt(tx.timeStamp, 10) * 1000).toISOString().split('T')[0];
-    transactionFrequency[date] = (transactionFrequency[date] || 0) + 1;
+    // const date = new Date(parseInt(tx.timeStamp, 10) * 1000).toISOString().split('T')[0];
+    // transactionFrequency[date] = (transactionFrequency[date] || 0) + 1;
     if (tx.tokenName) {
       tokenTransfers++;
     }
@@ -236,7 +202,7 @@ const calculatePerformanceMetrics = (transactions: EtherscanTransaction[]): Smar
     averageTransactionValue,
     maxGasUsed,
     minGasUsed,
-    transactionFrequency,
+    // transactionFrequency,
     errorRate
   };
 };
