@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Menu } from '@carbon/icons-react'
+import Logo from './Logo'
 
 interface NavigationMobileProps {  
     setter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,7 +9,7 @@ interface NavigationMobileProps {
 
 const NavigationMobile: React.FC<NavigationMobileProps> = ({ setter }) => {  
     return (
-        <nav className="md:hidden z-20 fixed top-0 left-0 right-0 h-[60px] bg-blackLight flex [&>*]:my-auto px-2">
+        <nav className="md:hidden z-20 fixed top-0 left-0 right-0 h-[80px] bg-blackLight flex [&>*]:my-auto px-2">
             <button
                 className="text-4xl flex text-white"
                 onClick={() => {
@@ -23,9 +24,7 @@ const NavigationMobile: React.FC<NavigationMobileProps> = ({ setter }) => {
                 className="text-orange"
                 onClick={() => console.log('Icon clicked')}/>
             </button>
-            <Link href="/" className="mx-auto text-offWhite">
-                Karpatkey
-            </Link>
+            <Logo color="offWhite" marginAuto="mx-auto"></Logo>
             <Link
                 className="text-3xl flex text-white"
                 href="/login"
