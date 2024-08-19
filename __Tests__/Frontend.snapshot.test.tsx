@@ -1,12 +1,18 @@
+// @no-check
+
 import React from 'react';
-import { create } from 'react-test-renderer';
+import renderer, { create } from 'react-test-renderer';
+import {describe, expect, test, it} from '@jest/globals';
 import Header from '../src/app/ui/Header';
 import Footer from '../src/app/ui/Footer';
 import Navigation from '../src/app/ui/Nav';
 
 describe('Header Component Snapshot', () => {
-  test('matches the snapshot', () => {
-    const tree = create(<Header />).toJSON();
+  it('should match the snapshot', () => {
+    // Render the Header component
+    const tree = renderer.create(<Header />).toJSON();
+
+    // Compare the rendered output to the stored snapshot
     expect(tree).toMatchSnapshot();
   });
 });
@@ -20,10 +26,7 @@ describe('Footer Component', () => {
 
   describe('Navigation Snapshot', () => {
     test('matches the snapshot', () => {
-      const tree = create(<Navigation show={true} setter={() => {}} />).toJSON();
+      const tree = create(<Navigation show={true} setter={() => {}} windowSize={{ width: 1024, height: 768 }} />).toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
-  
-  
-  

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Workspace, Dashboard, Row, DataVis_1, CustomerService, IbmOpenshiftContainerPlatformOnVpcForRegulatedIndustries } from '@carbon/icons-react'
@@ -8,7 +8,7 @@ import { Workspace, Dashboard, Row, DataVis_1, CustomerService, IbmOpenshiftCont
 type SidebarProps = {
     show: boolean;
     setter: React.Dispatch<React.SetStateAction<boolean>>;
-    windowSize: {
+    windowSize?: {
         width: number;
         height: number;
     }

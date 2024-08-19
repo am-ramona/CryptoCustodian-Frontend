@@ -2,21 +2,22 @@
 
 exports[`Footer Component matches the snapshot 1`] = `
 <footer
-  className="grid h-20"
+  className="grid h-20 text-center"
 >
   <p
-    className="place-self-end"
+    className="place-self-center text-[15px] font-medium pt-3"
   >
     © 2024 Crypto Custodian
   </p>
 </footer>
 `;
 
-exports[`Header Component Snapshot matches the snapshot 1`] = `
+exports[`Header Component Snapshot should match the snapshot 1`] = `
 <header
   className="w-full h-20"
 >
   <a
+    className="undefined text-#232323"
     href="/"
     onClick={[Function]}
     onMouseEnter={[Function]}
@@ -34,13 +35,13 @@ exports[`Header Component Snapshot matches the snapshot 1`] = `
 exports[`Navigation Snapshot matches the snapshot 1`] = `
 [
   <div
-    className="w-fit h-[calc(100vh-10rem)] transition-[margin-left] ease-in-out duration-500 fixed md:static top-60 bottom-0 left-0 z-40 ml-0"
+    className="w-fit h-full transition-[margin-left] ease-in-out duration-500 fixed md:static top-[80px] bottom-0 left-0 z-40 ml-0 h-full bg-offWhite text-blackLight/75"
   >
     <div
       className="flex flex-col"
     >
       <a
-        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-blackLight/75 hover:text-blackLight"
+        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-inherit/75 hover:text-inherit"
         href="/"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -71,7 +72,7 @@ exports[`Navigation Snapshot matches the snapshot 1`] = `
         </div>
       </a>
       <a
-        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-blackLight/75 hover:text-blackLight"
+        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-inherit/75 hover:text-inherit"
         href="/assetOverview"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -105,7 +106,7 @@ exports[`Navigation Snapshot matches the snapshot 1`] = `
         </div>
       </a>
       <a
-        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-blackLight/75 hover:text-blackLight"
+        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-inherit/75 hover:text-inherit"
         href="/positionsAndHoldings"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -136,7 +137,7 @@ exports[`Navigation Snapshot matches the snapshot 1`] = `
         </div>
       </a>
       <a
-        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-blackLight/75 hover:text-blackLight"
+        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-inherit/75 hover:text-inherit"
         href="/aprAndPerformanceMetrics"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -167,7 +168,7 @@ exports[`Navigation Snapshot matches the snapshot 1`] = `
         </div>
       </a>
       <a
-        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-blackLight/75 hover:text-blackLight"
+        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-inherit/75 hover:text-inherit"
         href="/clientManagement"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -198,7 +199,7 @@ exports[`Navigation Snapshot matches the snapshot 1`] = `
         </div>
       </a>
       <a
-        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-blackLight/75 hover:text-blackLight"
+        className="flex gap-2 [&>*]:my-auto text-md pl-6 py-3 border-b-[1px] border-b-white/10 text-inherit/75 hover:text-inherit"
         href="/transactionAndCompliance"
         onClick={[Function]}
         onMouseEnter={[Function]}
