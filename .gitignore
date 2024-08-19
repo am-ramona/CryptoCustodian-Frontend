@@ -38,8 +38,6 @@ next-env.d.ts
 # old files to be deleted 
 /src/app/route-old.ts
 /src/app/template_old.tsx
-/src/app/api/dasboard
-/src/route_old.ts
-/src/template_old.tsx
+# /src/app/api/dasboard
 jest.config_old.ts
 jest.setup_old.ts
