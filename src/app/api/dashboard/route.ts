@@ -1,4 +1,4 @@
-// not used anymore for data fetching. Check the backend
+// This first draft is not used anymore for data fetching. Please check the backend folder
 
 import { NextRequest, NextResponse } from "next/server"
 
