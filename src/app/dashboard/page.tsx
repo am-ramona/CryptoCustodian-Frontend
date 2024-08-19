@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import ResponsiveTable from '../ui/tableList'
 import PerformanceMetrics from './PerformanceMetrics'
 import type { PortfolioItem, AllocationItem, BarChartProps } from '../types'

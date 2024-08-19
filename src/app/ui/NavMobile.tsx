@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from './Logo'
 import { Menu } from '@carbon/icons-react'
+
 interface NavigationMobileProps {
     setter: React.Dispatch<React.SetStateAction<boolean>>;
 }
