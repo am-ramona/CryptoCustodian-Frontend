@@ -37,10 +37,13 @@ const config: Config = {
       spacing: {
         "18": "1.125rem",
         "60": "3.75rem",
+         main: 'calc(100vh - 160px)'
       },
       gridTemplateColumns: {
-        // main: "auto minmax(700px, 1fr)",
         main: "332px minmax(300px, 1fr)"
+      },
+      gridTemplateRows: {
+        main: 'calc(100vh - 160px)',
       },
       scrollbar: ["rounded"],
     },

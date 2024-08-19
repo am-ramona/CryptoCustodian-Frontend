@@ -1,6 +1,7 @@
-// import { ProgressBarRound } from '@carbon/icons-react'
+import { NextPage } from 'next'
 
-export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
-  return <p>Loading ...</p>;
+const Loading: NextPage = () => {
+  return <p>Loading ...</p>
 }
+
+export default Loading

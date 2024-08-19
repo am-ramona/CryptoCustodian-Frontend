@@ -54,6 +54,15 @@ export async function GET(request: NextRequest) {
     const response = await fetch(url);
     const data = await response.json();
 
+    //   const response = await axios.get('https://api.etherscan.io/api', {
+//     params: {
+//       module: 'account',
+//       action: 'tokentx',
+//       address: '0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c',
+//       apikey: 'YourApiKeyToken'
+//     }
+//   });
+
     if (!response.ok) {
       throw new Error(
         `Error fetching data: ${data.message || response.statusText}`
@@ -204,68 +213,5 @@ const calculatePerformanceMetrics = (transactions: EtherscanTransaction[]): Smar
     minGasUsed,
     // transactionFrequency,
     errorRate
-  };
-};
-// import axios from 'axios';
-
-// async function getEtherscanData() {
-//   const response = await axios.get('https://api.etherscan.io/api', {
-//     params: {
-//       module: 'account',
-//       action: 'tokentx',
-//       address: '0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c',
-//       apikey: 'YourApiKeyToken'
-//     }
-//   });
-//   return response.data.result;
-// }
-
-// getEtherscanData().then(console.log).catch(console.error);
-
-// if (data.status === '1') {
-//   const transactions = data.result;
-//   const tokenSymbols = new Set(transactions.map(tx => tx.tokenSymbol));
-//   // return tokenSymbols.size; // Number of distinct tokens
-// } else {
-//   throw new Error(`Error fetching data: ${data.message}`);
-// }
-
-//     const transactions = data.result;
-//     const PortfoliosNb = new Set(transactions.map(tx => tx.tokenSymbol)).size;
-
-//     // Process transactions to get portfolio, asset allocation, and performance metrics
-//     const portfolio = transactions.map(tx => ({
-//       token: tx.tokenSymbol,
-//       amount: tx.value,
-//       date: new Date(tx.timeStamp * 1000),
-//       Portfolios: PortfoliosNb
-//     }));
-
-//     return NextResponse.json({ portfolio });
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     return NextResponse.error();
-//   }
-// }
-
-// const ETHERSCAN_API_KEY = 'YOUR_ETHERSCAN_API_KEY';
-// const CONTRACT_ADDRESS = '0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c';
-
-// async function fetchTokenTransactions() {
-//   const url = `https://api.etherscan.io/api?module=account&action=tokentx&address=${CONTRACT_ADDRESS}&apikey=${ETHERSCAN_API_KEY}`;
-
-//   const response = await fetch(url);
-//   const data = await response.json();
-
-//   if (data.status === '1') {
-//     const transactions = data.result;
-//     const tokenSymbols = new Set(transactions.map(tx => tx.tokenSymbol));
-//     return tokenSymbols.size; // Number of distinct tokens
-//   } else {
-//     throw new Error(`Error fetching data: ${data.message}`);
-//   }
-// }
-
-// fetchTokenTransactions()
-//   .then(count => console.log(`Number of distinct client portfolios (tokens): ${count}`))
-//   .catch(error => console.error(error));
+  }
+}

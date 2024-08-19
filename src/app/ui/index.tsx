@@ -1,24 +1,39 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './Header'
-// import Nav from './Nav_old'
 import Footer from './Footer'
 import Navigation from './Nav'
 import NavigationMobile from './NavMobile'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
 	const [showSidebar, setShowSidebar] = useState<boolean>(false);
-	console.log('showSidebar', showSidebar)
+    const [windowSize, setWindowSize] = useState({
+        width: 0,
+        height: 0,
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
 	return (
 		<>  
 		  <Header />
-		  <div className="grid grid-cols-1 md:grid-cols-main gap-10">
+		  <div className="grid grid-cols-1 min-h-main md:grid-cols-main gap-10">
 		  	<NavigationMobile setter={setShowSidebar} />
-		  	<Navigation show={showSidebar} setter={setShowSidebar} />
-			{/* <Nav /> */}
-			<main>{children}</main>
+		  	<Navigation show={showSidebar} setter={setShowSidebar} windowSize={windowSize}  />
+			<main className='min-h-main'>{children}</main>
 		  </div>
 		  <Footer />
 		</>

@@ -4,7 +4,7 @@ import { BarChartProps } from '../types'
 
 const PerformanceMetrics: React.FC<BarChartProps> = ({ data }) => {
     return (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={300} className="mt-8 mb-20">
             <BarChart data={[data]}>
                 <XAxis dataKey="contract" />
                 <YAxis domain={[0, 20000]} allowDataOverflow /> {/* Automatically scale Y-axis */}

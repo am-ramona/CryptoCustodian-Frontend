@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     icon: '/avatar.png',
     apple: '/avatar.png',
   },
-};
+}
 
 export default function RootLayout({
   children,
@@ -26,7 +26,7 @@ export default function RootLayout({
         </Layout>
       </body>
     </html>
-  );
+  )
 }
 
 
