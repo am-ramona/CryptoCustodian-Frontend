@@ -1,7 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+// not used anymore for data fetching. Check the backend
 
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+import { NextRequest, NextResponse } from "next/server"
+
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS
 
 // Helper function to convert Wei to Ether
 const weiToEther = (wei: string): number => parseFloat(wei) / 1e18;
@@ -53,15 +55,6 @@ export async function GET(request: NextRequest) {
 
     const response = await fetch(url);
     const data = await response.json();
-
-    //   const response = await axios.get('https://api.etherscan.io/api', {
-//     params: {
-//       module: 'account',
-//       action: 'tokentx',
-//       address: '0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c',
-//       apikey: 'YourApiKeyToken'
-//     }
-//   });
 
     if (!response.ok) {
       throw new Error(
@@ -161,11 +154,11 @@ function calculateAssetAllocation(transactions: EtherscanTransaction[]): Array<{
     allocation: allocation[tokenSymbol],
   }));
 
-  return allocationArray;
+  return allocationArray
 }
 
 const isFailedTransaction = (tx: EtherscanTransaction): boolean => {
-  return tx.input === 'deprecated';
+  return tx.input === 'deprecated'
 };
 
 
