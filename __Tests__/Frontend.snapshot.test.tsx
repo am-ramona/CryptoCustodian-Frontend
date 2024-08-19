@@ -9,10 +9,7 @@ import Navigation from '../src/app/ui/Nav';
 
 describe('Header Component Snapshot', () => {
   it('should match the snapshot', () => {
-    // Render the Header component
     const tree = renderer.create(<Header />).toJSON();
-
-    // Compare the rendered output to the stored snapshot
     expect(tree).toMatchSnapshot();
   });
 });

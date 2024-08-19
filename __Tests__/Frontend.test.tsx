@@ -12,12 +12,9 @@ import Navigation from '../src/app/ui/Nav';
 describe('Header Component', () => {
   test('renders correctly', () => {
     render(<Header />);
-
-    // Check if the header element is present in the document
     const headerElement = screen.getByRole('heading', { name: /Crypto Custodian/i });
     expect(headerElement).toBeInTheDocument();
 
-    // Check if the Link component is present
     const linkElement = screen.getByRole('link', { name: /Crypto Custodian/i });
     expect(linkElement).toHaveAttribute('href', '/');
   });
